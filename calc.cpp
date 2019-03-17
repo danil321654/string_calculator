@@ -102,7 +102,27 @@ double calculation(std::vector<char> expr)
    
     for(int i=digits.size()-1;i>0;i--) {
         if(opers[i-1]==4){
+            if(abs(digits[i]-(int)digits[i-1])==0 | digits[i-1]>0)
             digits[i]=pow((digits[i-1]),(digits[i]));
+        else{ 
+                try 
+                    {  
+                        int d=1/digits[i];
+                        if (d%2==0 &&digits[i-1]<0 )
+                        {
+                            throw 228; //генерировать целое число 123
+                        }
+                        digits[i]=0-pow((0-digits[i-1]),(digits[i]));   
+                    }
+                    catch(int i)//сюда передастся число 123
+                    {
+                       std:: cout << "Ошибка №" << i << " - извлечение корня четной степени из отрицательного числа" << std::endl;
+                       exit(0);
+
+                    }
+                    
+
+            }
             digits.erase(digits.begin()+i-1);
             opers.erase(opers.begin()+i-1);
             }
